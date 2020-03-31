@@ -1,8 +1,50 @@
 ## How to use these
 
-[Bookmarklets](https://en.wikipedia.org/wiki/Bookmarklet) are an ancient bit of web technology which embeds Javascript in a URL. The idea is, you copy the bookmarklet to your bookmarks bar, and then click it on a site to execute the javascript embedded in it. In general, bookmarklets are kind of dangerous and so not widely used anymore (Browser plugins are now preferred.) But it's a really fast and simple way to create custom code that you can kick off easily. I promise that these don't do anything nefarious! (But why on Earth would you trust me?)
+[Bookmarklets](https://en.wikipedia.org/wiki/Bookmarklet) are an ancient bit of web technology which embeds Javascript in a URL. The idea is, you copy the bookmarklet to your bookmarks bar, and then click it on a site to execute the javascript embedded in it. In general, bookmarklets are [kind of dangerous](https://en.wikipedia.org/wiki/Self-XSS) and so not widely used anymore (Browser plugins are now preferred.) But it's a really fast and simple way to create custom code that you can kick off easily. I promise that these don't do anything nefarious! (But why on Earth would you trust me?)
 
-## Download a Question's Prediction Data
+### Download Your Track Record (binary questions only, as csv)
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    script.src   = url;
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+      fetch(`https://www.metaculus.com/accounts/profile/${metacData.user.id}/track-record-export/`).then(data1 => data1.json().then(predictions => {
+        saveAs(new Blob([Papa.unparse(predictions)], {type: "text/csv;charset=utf-8"}), "track-record.csv");
+      }));
+    });
+  });
+})();
+```
+
+### Download the Metaculus Track Record (binary questions only, as csv)
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    script.src   = url;
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+      fetch(`https://www.metaculus.com/questions/track-record/export/`).then(data1 => data1.json().then(predictions => {
+        saveAs(new Blob([Papa.unparse(predictions)], {type: "text/csv;charset=utf-8"}), "metaculus-track-record.csv");
+      }));
+    });
+  });
+})();
+```
+
+### Download a Question's Prediction Data
 
 Metaculus exposes a time-series of a question's distribution of predictions in order to render the question's line plot. Using this bookmarklet, we can extract the raw data from the question page and export it to CSV. 
 
@@ -27,9 +69,43 @@ Here's the underlying code:
 })();
 ```
 
-## Load All Questions
+## Danger Zone
 
-**Please don't abuse this one. Hammering it could hurt the Metaculus Server.**
+**Please don't abuse bookmarklets below this. They rely on repeated calls to the Metaculus API, meaning that hammering them could hurt the Metaculus Server.**
+
+### Download Your Track Record (All questions, as csv)
+
+(Based on [this comment](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-20248).)
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    script.src   = url;
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+      fetch(`https://www.metaculus.com/api2/questions/?guessed_by=${metacData.user.id}&order_by=-activity&page=1`).then(data1 => data1.json().then(predictions => {
+        let n = Math.ceil(predictions.count/20);
+        let requests = [];
+        for(let i = 2; i <= n; i++){
+          requests.push(
+            fetch(`https://www.metaculus.com/api2/questions/?guessed_by=${metacData.user.id}&order_by=-activity&page=${i}`).then(data2 => data2.json().then(page => {
+              predictions.results = predictions.results.concat(page.results);
+            }))
+          );
+        }
+        Promise.all(requests).then(() => saveAs(new Blob([Papa.unparse(predictions.results)], {type: "text/csv;charset=utf-8"}), "track-record.csv"));
+      }));
+    });
+  });
+})();
+```
+
+## Load All Questions
 
 Ever get annoyed that you have to click "Load More" a bunch to browse down to older questions? Just click this bookmarklet to automatically click it until all questions are loaded. Loads 300 questions per second, so it won't happen immediately.
 
