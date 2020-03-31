@@ -4,6 +4,10 @@
 
 ### Download Your Track Record (binary questions only, as csv)
 
+This makes use of [the super-secret official-but-unsupported Metaculus API](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-6452), which only reports binary questions. If you want your track record across all questions, there's [a bookmarklet for that too](#download-your-track-record-all-questions-as-csv) (but please note that it's in [the danger zone](#danger-zone)!)
+
+<a href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bscript.src%20%20%20%3D%20url%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Bfetch(%60https%3A%2F%2Fwww.metaculus.com%2Faccounts%2Fprofile%2F%24%7BmetacData.user.id%7D%2Ftrack-record-export%2F%60).then(data1%20%3D%3E%20data1.json().then(predictions%20%3D%3E%20%7BsaveAs(new%20Blob(%5BPapa.unparse(predictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22track-record.csv%22)%3B%7D))%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download Your Track Record</a>
+
 ```javascript
 (() => {
   async function loadScript(url){
@@ -105,9 +109,9 @@ Here's the underlying code:
 })();
 ```
 
-## Load All Questions
+### Load All Questions
 
-Ever get annoyed that you have to click "Load More" a bunch to browse down to older questions? Just click this bookmarklet to automatically click it until all questions are loaded. Loads 300 questions per second, so it won't happen immediately.
+Ever get annoyed that you have to click "Load More" a bunch to browse down to older questions? Just click this bookmarklet to automatically click it until all questions are loaded. Loads a maximum of 300 questions per second (plus additional latency), so it won't happen immediately.
 
 <a href="javascript:(function()%7B(()%20%3D%3E%20%7B%0Alet%20cycler%20%3D%20setInterval(()%20%3D%3E%20%7B%0A%20%20if(document.querySelectorAll('question-table-row').length%20%3C%20metacData.initialQList.count)%7B%0A%20%20%20%20document.querySelector('._load-more').click()%3B%0A%20%20%7D%20else%20%7B%0A%20%20%20%20clearInterval(cycler)%3B%0A%20%20%7D%0A%7D%2C%20100)%3B%0A%7D)()%3B%7D)()%3B">Load All Questions</a>
 
