@@ -93,6 +93,33 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
 })();
 ```
 
+### Download A Community Prediction Plot (as PNG)
+
+The graphs on Metaculus are rendered using SVG, which is awesome for two things: 1. the web and 2. print. Not so good for exporting (e.g. into a document). Luckily it can be converted into PNG without too much trouble. This means we can write a hack to download a PNG of a graph.
+
+Things to be aware of:
+
+* You may need to run this one twice, as the external library doesn't load quickly enough to work correctly the first time. In a proper setting I'd fix the properly, but [I did warn you](#disclaimer) these are just hacks!
+* This doesn't bring the full stylesheet, so at present it just ends up looking like a big dark smear across a transparent background.
+* The graphs on Metaculus are *tiny*, so this blows it up 10-fold.
+
+<a style="color:red" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bscript.src%20%20%20%3D%20url%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Funpkg.com%2Fsave-svg-as-png%401.4.17%2Flib%2FsaveSvgAsPng.js%22).then(()%20%3D%3E%20%7BsaveSvgAsPng(document.querySelectorAll(%22svg.metac-graph%22)%5B0%5D%2C%20%22diagram.png%22%2C%20%7Bscale%3A%2010%7D)%3B%7D)%3B%7D)()%7D)()">Export Graph</a>
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    script.src   = url;
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://unpkg.com/save-svg-as-png@1.4.17/lib/saveSvgAsPng.js").then(() => {
+    saveSvgAsPng(document.querySelectorAll("svg.metac-graph")[0], "diagram.png", {scale: 10});
+  });
+})();
+```
+
 ## Danger Zone
 
 **Please don't abuse bookmarklets below this. They rely on repeated calls to the Metaculus API, meaning that hammering them could hurt the Metaculus Server.**
