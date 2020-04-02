@@ -20,6 +20,21 @@ Anyway, to use these:
 * These are very much *hacks*, so I don't guarantee they'll work.
 * If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.**
 
+### Use the Light Theme
+
+Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.com/), [AI](https://ai.metaculus.com/), [Pandemics](https://pandemic.metaculus.com/) and [Finance](https://finance.metaculus.com/). That last one got its own stylesheet, with a cream-background. We can hijack that for the other sites, if you're inclined to read with a light background.
+
+<a style="color:red" href="javascript:(function()%7B(()%20%3D%3E%20%7Blet%20link%20%20%20%3D%20document.createElement(%22link%22)%3Blink.rel%20%20%3D%20%22stylesheet%22%3Blink.href%20%20%20%3D%20%22https%3A%2F%2Fd3s0w6fek99l5b.cloudfront.net%2Fstatic%2Fmetaculus_finance.55b9910596de.css%22%3Bdocument.body.appendChild(link)%3B%7D)()%7D)()">Turn on the lights!</a>
+
+```
+(() => {
+  let link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://d3s0w6fek99l5b.cloudfront.net/static/metaculus_finance.55b9910596de.css";
+  document.body.appendChild(link);
+})();
+```
+
 ### Download Your Track Record (binary questions only, as csv)
 
 This makes use of [the super-secret official-but-unsupported Metaculus API](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-6452), which only reports binary questions. If you want your track record across all questions, there's [a bookmarklet for that too](#download-your-track-record-all-questions-as-csv) (but please note that it's in [the danger zone](#danger-zone)!)
