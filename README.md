@@ -26,13 +26,25 @@ Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.co
 
 <a style="color:red" href="javascript:(function()%7B(()%20%3D%3E%20%7Blet%20link%20%20%20%3D%20document.createElement(%22link%22)%3Blink.rel%20%20%3D%20%22stylesheet%22%3Blink.href%20%20%20%3D%20%22https%3A%2F%2Fd3s0w6fek99l5b.cloudfront.net%2Fstatic%2Fmetaculus_finance.55b9910596de.css%22%3Bdocument.body.appendChild(link)%3B%7D)()%7D)()">Turn on the lights!</a>
 
-```
+```javascript
 (() => {
   let link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = "https://d3s0w6fek99l5b.cloudfront.net/static/metaculus_finance.55b9910596de.css";
   document.body.appendChild(link);
 })();
+```
+
+### Show my Pending Questions
+
+Suppose in addition to forecasting, you write a lot of questions. Sometimes, some of those will get stuck in moderation for awhile. In times like these, it would be helpful to be able to set the status filter to "Pending", but that isn't an option. [Sad!](https://knowyourmeme.com/memes/donald-trumps-sad-tweets) Fortunately, we can do this ourselves.
+
+<a style="color:red;" href="javascript:(function()%7Bdocument.querySelectorAll('question-table-row').forEach(x%20%3D%3E%20%7Bif(x.innerText.indexOf('Pending')%20%3D%3D%20-1)%20x.remove()%3B%7D)%7D)()">Pending Only, Please!</a>
+
+```javascript
+document.querySelectorAll('question-table-row').forEach(x => {
+  if(x.innerText.indexOf('Pending') == -1) x.remove();
+});
 ```
 
 ### Download Your Track Record (binary questions only, as csv)
