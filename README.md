@@ -120,6 +120,29 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
 })();
 ```
 
+### Download My Predictions From a Binary Question
+
+Only works on Binary question pages. You might need to click it twice to get it to work.
+
+<a style="color:red;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bscript.src%20%20%20%3D%20url%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7BsaveAs(new%20Blob(%5BPapa.unparse(metacData.question.my_predictions.predictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22track-record.csv%22)%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Predictions on this Question</a>
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    script.src   = url;
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+      saveAs(new Blob([Papa.unparse(metacData.question.my_predictions.predictions)], {type: "text/csv;charset=utf-8"}), "track-record.csv");
+    });
+  });
+})();
+```
+
 ### Download A Community Prediction Plot (as PNG)
 
 The graphs on Metaculus are rendered using SVG, which is awesome for two things: 1. the web and 2. print. Not so good for exporting (e.g. into a document). Luckily it can be converted into PNG without too much trouble. This means we can write a hack to download a PNG of a graph.
