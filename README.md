@@ -226,6 +226,33 @@ let cycler = setInterval(() => {
 })();
 ```
 
+### Download all my predictions (as JSON)
+
+This one could seriously kill the server. DO NOT ABUSE IT. Run it once and save the output. Don't hammer it--it takes a few seconds (at least) to assemble all your data.
+
+```javascript
+(() => {
+  async function loadScript(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
+    document.body.appendChild(script);
+  }
+
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+    allRequests = [];
+    allQuestions = [];
+    for(let i = 0; i < metacData.trackRecord.length; i++){
+      allRequests.push(fetch(metacData.trackRecord[i].url).then(r => r.text().then(t => {
+        allQuestions.push(JSON.parse(/window.metacData.question = (.*);/.exec(t)[1]));
+      })));
+    }
+
+    Promise.all(allRequests).then(() => saveAs(new Blob([JSON.stringify(allQuestions)], {type: "application/json;charset=utf-8"}), "predictions.json"));
+  });
+})();
+```
+
 ## Suggest a Hack
 
 Think I might be able to make Metaculus work a little better for you? [Suggest a new hack](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose) and I'll look into implementing it!
