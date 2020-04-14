@@ -17,14 +17,14 @@ Anyway, to use these:
 
 ## Disclaimer
 
-* These are very much *hacks*, so I don't guarantee they'll work.
-* If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.**
+* These are very much *hacks*. I don't guarantee any of them will work.
+* If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.** (Metaculus Admins, allow me to suggest you take a concerned look at the [Danger Zone](#danger-zone).)
 
 ### Use the Light Theme
 
-Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.com/), [AI](https://ai.metaculus.com/), [Pandemics](https://pandemic.metaculus.com/) and [Finance](https://finance.metaculus.com/). That last one got its own stylesheet, with a cream-background. We can hijack that for the other sites, if you're inclined to read with a light background.
+Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.com/), [AI](https://ai.metaculus.com/), [Pandemic](https://pandemic.metaculus.com/) and [Finance](https://finance.metaculus.com/). That last one got its own stylesheet, with a cream-background. We can hijack that for the other sites, if you're inclined to read with a light background.
 
-<a style="color:red" href="javascript:(function()%7B(()%20%3D%3E%20%7Blet%20link%20%20%20%3D%20document.createElement(%22link%22)%3Blink.rel%20%20%3D%20%22stylesheet%22%3Blink.href%20%20%20%3D%20%22https%3A%2F%2Fd3s0w6fek99l5b.cloudfront.net%2Fstatic%2Fmetaculus_finance.55b9910596de.css%22%3Bdocument.body.appendChild(link)%3B%7D)()%7D)()">Turn on the lights!</a>
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Blet%20link%20%20%20%3D%20document.createElement(%22link%22)%3Blink.rel%20%20%3D%20%22stylesheet%22%3Blink.href%20%20%20%3D%20%22https%3A%2F%2Fd3s0w6fek99l5b.cloudfront.net%2Fstatic%2Fmetaculus_finance.55b9910596de.css%22%3Bdocument.body.appendChild(link)%3B%7D)()%7D)()">Turn on the lights!</a>
 
 ```javascript
 (() => {
@@ -39,7 +39,7 @@ Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.co
 
 Suppose in addition to forecasting, you write a lot of questions. Sometimes, some of those will get stuck in moderation for awhile. In times like these, it would be helpful to be able to set the status filter to "Pending", but that isn't an option. [Sad!](https://knowyourmeme.com/memes/donald-trumps-sad-tweets) Fortunately, we can do this ourselves.
 
-<a style="color:red;" href="javascript:(function()%7Bdocument.querySelectorAll('question-table-row').forEach(x%20%3D%3E%20%7Bif(x.innerText.indexOf('Pending')%20%3D%3D%20-1)%20x.remove()%3B%7D)%7D)()">Pending Only, Please!</a>
+<a style="color: red !important;" href="javascript:(function()%7Bdocument.querySelectorAll('question-table-row').forEach(x%20%3D%3E%20%7Bif(x.innerText.indexOf('Pending')%20%3D%3D%20-1)%20x.remove()%3B%7D)%7D)()">Pending Only, Please!</a>
 
 ```javascript
 document.querySelectorAll('question-table-row').forEach(x => {
@@ -76,7 +76,7 @@ This makes use of [the super-secret official-but-unsupported Metaculus API](http
 
 If you want to analyze Metaculus' Track record (again, on Binary questions only), you can get that data (also from [the super-secret official-but-unsupported Metaculus API](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-6452)) by running this Bookmarklet.
 
-<a style="color:red!important" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Bfetch(%60https%3A%2F%2Fwww.metaculus.com%2Fquestions%2Ftrack-record%2Fexport%2F%60).then(data1%20%3D%3E%20data1.json().then(predictions%20%3D%3E%20%7BsaveAs(new%20Blob(%5BPapa.unparse(predictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22metaculus-track-record.csv%22)%3B%7D))%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download Metaculus Track Record</a>
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Bfetch(%60https%3A%2F%2Fwww.metaculus.com%2Fquestions%2Ftrack-record%2Fexport%2F%60).then(data1%20%3D%3E%20data1.json().then(predictions%20%3D%3E%20%7BsaveAs(new%20Blob(%5BPapa.unparse(predictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22metaculus-track-record.csv%22)%3B%7D))%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download Metaculus Track Record</a>
 
 ```javascript
 (() => {
@@ -120,11 +120,11 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
 })();
 ```
 
-### Download My Predictions From a Binary Question
+### Download My Predictions From a Question (as CSV)
 
-Only works on Binary question pages. You might need to click it twice to get it to work.
+For binary questions, will work about how you expect. For range questions, it's a little more complex--each prediction includes an array components (one for each peak in a multimodal prediction), normalized to a 0-1 scale (or something close to it). I haven't yet figured out how to translate the component values onto the question's actual range, but I'm pretty sure I've got the values that correspond to the mean, spread, and weight figured out. Those are reported (though not translated into the actual question scale) as `component{i}mean`, `component{i}weight`, and `component{i}spread` (where `{i}` is the component's 0-based ordinal index in the array). (Inspired by [this feature request](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add/#comment-27321).)
 
-<a style="color:red;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7BsaveAs(new%20Blob(%5BPapa.unparse(metacData.question.my_predictions.predictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22track-record.csv%22)%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Predictions on this Question</a>
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Blet%20myPredictions%3Bif(metacData.question.possibilities.type%20%3D%3D%20'binary')%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20(%7Btime%3A%20new%20Date(p.t*1000).toISOString()%2Cprediction%3A%20p.x%7D))%3B%7D%20else%20%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20%7Blet%20prediction%20%3D%20%7B%20time%3A%20new%20Date(p.t*1000).toISOString()%20%7D%3Bp.d.forEach((c%2C%20i)%20%3D%3E%20%7Bprediction%5B%60component%24%7Bi%7Dmean%60%5D%20%3D%20c.x0%3Bprediction%5B%60component%24%7Bi%7Dspread%60%5D%20%3D%20c.s%3Bprediction%5B%60component%24%7Bi%7Dweight%60%5D%20%3D%20c.w%3B%7D)%3Breturn%20prediction%3B%7D)%3B%7DsaveAs(new%20Blob(%5BPapa.unparse(myPredictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22my-predictions.csv%22)%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Predictions on this Question</a>
 
 ```javascript
 (() => {
@@ -134,10 +134,26 @@ Only works on Binary question pages. You might need to click it twice to get it 
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
   }
-
   loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
-      saveAs(new Blob([Papa.unparse(metacData.question.my_predictions.predictions)], {type: "text/csv;charset=utf-8"}), "track-record.csv");
+      let myPredictions;
+      if(metacData.question.possibilities.type == 'binary'){
+        myPredictions = metacData.question.my_predictions.predictions.map(p => ({
+          time: new Date(p.t*1000).toISOString(),
+          prediction: p.x
+        }));
+      } else {
+        myPredictions = metacData.question.my_predictions.predictions.map(p => {
+          let prediction = { time: new Date(p.t*1000).toISOString() };
+          p.d.forEach((c, i) => {
+            prediction[`component${i}mean`] = c.x0;
+            prediction[`component${i}spread`] = c.s;
+            prediction[`component${i}weight`] = c.w;
+          });
+          return prediction;
+        });
+      }
+      saveAs(new Blob([Papa.unparse(myPredictions)], {type: "text/csv;charset=utf-8"}), "my-predictions.csv");
     });
   });
 })();
@@ -149,11 +165,10 @@ The graphs on Metaculus are rendered using SVG, which is awesome for two things:
 
 Things to be aware of:
 
-* You may need to run this one twice, as the external library doesn't load quickly enough to work correctly the first time. In a proper setting I'd fix the properly, but [I did warn you](#disclaimer) these are just hacks!
 * This doesn't bring the full stylesheet, so at present it just ends up looking like a big dark smear across a transparent background.
 * The graphs on Metaculus are *tiny*, so this blows it up 10-fold.
 
-<a style="color:red" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Funpkg.com%2Fsave-svg-as-png%401.4.17%2Flib%2FsaveSvgAsPng.js%22).then(()%20%3D%3E%20%7BsaveSvgAsPng(document.querySelectorAll(%22svg.metac-graph%22)%5B0%5D%2C%20%22diagram.png%22%2C%20%7Bscale%3A%2010%7D)%3B%7D)%3B%7D)()%7D)()">Export Graph</a>
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Funpkg.com%2Fsave-svg-as-png%401.4.17%2Flib%2FsaveSvgAsPng.js%22).then(()%20%3D%3E%20%7BsaveSvgAsPng(document.querySelectorAll(%22svg.metac-graph%22)%5B0%5D%2C%20%22diagram.png%22%2C%20%7Bscale%3A%2010%7D)%3B%7D)%3B%7D)()%7D)()">Export Graph</a>
 
 ```javascript
 (() => {
@@ -174,9 +189,13 @@ Things to be aware of:
 
 **Please don't abuse bookmarklets below this. They rely on repeated calls to the Metaculus API, meaning that hammering them could hurt the Metaculus Server.**
 
+## Disclaimer Addendum
+
+* You assume responsibility for the consequences of using these. If you somehow get in trouble for using these, feel free to explain to the Metaculus admins that these were involved, but **the fault is not 100% mine.** You have been amply warned, you know the risks.
+
 ### Download Your Track Record (All questions, as csv)
 
-Same idea [as above](#download-your-track-record-binary-questions-only-as-csv), only this one side-steps the API to get all question types, not just binary questions. Makes a bunch of fetch calls, so it can take a minute. (Based on [this comment](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-20248).)
+Same idea [as above](#download-your-track-record-binary-questions-only-as-csv), only this one side-steps the API to get all question types, not just binary questions. Makes a bunch of fetch calls, so it can take a minute. (Inspired by [this feature request](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add-may-2018-edition/#comment-20248).)
 
 <a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Bfetch(%60https%3A%2F%2Fwww.metaculus.com%2Fapi2%2Fquestions%2F%3Fguessed_by%3D%24%7BmetacData.user.id%7D%26order_by%3D-activity%26page%3D1%60).then(data1%20%3D%3E%20data1.json().then(predictions%20%3D%3E%20%7Blet%20n%20%3D%20Math.ceil(predictions.count%2F20)%3Blet%20requests%20%3D%20%5B%5D%3Bfor(let%20i%20%3D%202%3B%20i%20%3C%3D%20n%3B%20i%2B%2B)%7Brequests.push(fetch(%60https%3A%2F%2Fwww.metaculus.com%2Fapi2%2Fquestions%2F%3Fguessed_by%3D%24%7BmetacData.user.id%7D%26order_by%3D-activity%26page%3D%24%7Bi%7D%60).then(data2%20%3D%3E%20data2.json().then(page%20%3D%3E%20%7Bpredictions.results%20%3D%20predictions.results.concat(page.results)%3B%7D)))%3B%7DPromise.all(requests).then(()%20%3D%3E%20saveAs(new%20Blob(%5BPapa.unparse(predictions.results)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22track-record.csv%22))%3B%7D))%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Full Track Record</a>
 
@@ -228,7 +247,9 @@ let cycler = setInterval(() => {
 
 ### Download all my predictions (as JSON)
 
-This one could seriously kill the server. DO NOT ABUSE IT. Run it once and save the output. Don't hammer it--it takes a few seconds (at least) to assemble all your data.
+Runs from your user profile page. Queries the metaculus server for every question page on which you've ever predicted. It will take a few seconds (at least) to assemble all your data. DO NOT ABUSE IT. Run it once and save the output. This one could seriously kill the server. (Inspired by [this feature request](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add/#comment-27329).)
+
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7BallRequests%20%3D%20%5B%5D%3BallQuestions%20%3D%20%5B%5D%3Bfor(let%20i%20%3D%200%3B%20i%20%3C%20metacData.trackRecord.length%3B%20i%2B%2B)%7BallRequests.push(fetch(metacData.trackRecord%5Bi%5D.url).then(r%20%3D%3E%20r.text().then(t%20%3D%3E%20%7BallQuestions.push(JSON.parse(%2Fwindow.metacData.question%20%3D%20(.*)%3B%2F.exec(t)%5B1%5D))%3B%7D)))%3B%7DPromise.all(allRequests).then(()%20%3D%3E%20saveAs(new%20Blob(%5BJSON.stringify(allQuestions)%5D%2C%20%7Btype%3A%20%22application%2Fjson%3Bcharset%3Dutf-8%22%7D)%2C%20%22predictions.json%22))%3B%7D)%3B%7D)()%7D)()">Make me a big JSON of every prediction I've ever made</a>
 
 ```javascript
 (() => {
