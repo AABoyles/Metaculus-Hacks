@@ -35,6 +35,22 @@ Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.co
 })();
 ```
 
+### Use the Hacker Theme
+
+Sometimes you just want a black screen with a blinking green cursor, right? Transform Metaculus into something that looks right at home on your 8086. Kinda like this site, come to think of it...
+
+<a style="color: red !important;" href="javascript:(function()%7B(()%3D%3E%7B%0A%20%20let%20style%20%3D%20document.createElement(%22style%22)%3B%0A%20%20style.innerText%20%3D%20%22body%7B%20color%3A%20%2300ff00%3B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20style.innerText%20%2B%3D%20%22.section__content%20%7B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20style.innerText%20%2B%3D%20%22.question-table__row%3E%3Afirst-child%20%7B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20document.body.appendChild(style)%3B%0A%7D)()%3B%7D)()%3B">Hackerize Metaculus</a>
+
+```javascript
+(()=>{
+  let style = document.createElement("style");
+  style.innerText = "body{ color: #00ff00; background-color: #000000; }";
+  style.innerText += ".section__content { background-color: #000000; }";
+  style.innerText += ".question-table__row>:first-child { background-color: #000000; }";
+  document.body.appendChild(style);
+})();
+```
+
 ### Show my Pending Questions
 
 Suppose in addition to forecasting, you write a lot of questions. Sometimes, some of those will get stuck in moderation for awhile. In times like these, it would be helpful to be able to set the status filter to "Pending", but that isn't an option. [Sad!](https://knowyourmeme.com/memes/donald-trumps-sad-tweets) Fortunately, we can do this ourselves.
