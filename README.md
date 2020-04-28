@@ -20,6 +20,28 @@ Anyway, to use these:
 * These are very much *hacks*. I don't guarantee any of them will work.
 * If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.** (Metaculus Admins, allow me to suggest you take a concerned look at the [Danger Zone](#danger-zone).)
 
+### Predict the Community Estimate (binary questions only)
+
+If you don't predict on everything, you'll fall off the leaderboard. But let's be honest, nobody's interested in every question. Sometimes you just want to peg your prediction to the community estimate and move on. This bookmarklet does it for you! On a Binary question page (only binary questions for now!), click this bookmarklet and you'll register a prediction equal to the community estimate.
+
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7B%0A%20%20let%20p%20%3D%20metacData.question.prediction_timeseries%3B%0A%20%20fetch(%60%2Fapi2%2Fquestions%2F%24%7BmetacData.question.id%7D%2Fpredict%2F%60%2C%20%7B%0A%20%20%20%20method%3A%20'POST'%2C%0A%20%20%20%20headers%3A%20%7B%0A%20%20%20%20%20%20'Accept'%3A%20'application%2Fjson%2C%20text%2Fplain%2C%20*%2F*'%2C%0A%20%20%20%20%20%20'Content-Type'%3A%20'application%2Fjson%3Bcharset%3Dutf-8'%2C%0A%20%20%20%20%20%20'X-CSRFToken'%3A%20document.cookie.split('%3D')%5B1%5D%2C%0A%20%20%20%20%20%20'x-requested-with'%3A%20'XMLHttpRequest'%0A%20%20%20%20%7D%2C%0A%20%20%20%20body%3A%20JSON.stringify(%7Bprediction%3A%20p%5Bp.length-1%5D.community_prediction%2C%20void%3A%20false%7D)%0A%20%20%7D)%3B%0A%7D)()%3B%7D)()%3B">Predict Community Estimate</a>
+
+```javascript
+(() => {
+  let p = metacData.question.prediction_timeseries;
+  fetch(`/api2/questions/${metacData.question.id}/predict/`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json;charset=utf-8',
+      'X-CSRFToken': document.cookie.split('=')[1],
+      'x-requested-with': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({prediction: p[p.length-1].community_prediction, void: false})
+  });
+})();
+```
+
 ### Use the Light Theme
 
 Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.com/), [AI](https://ai.metaculus.com/), [Pandemic](https://pandemic.metaculus.com/) and [Finance](https://finance.metaculus.com/). That last one got its own stylesheet, with a cream-background. We can hijack that for the other sites, if you're inclined to read with a light background.
