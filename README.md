@@ -333,6 +333,6 @@ Runs from your user profile page. Queries the metaculus server for every questio
 
 Think I might be able to make Metaculus work a little better for you? [Suggest a new hack](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose) and I'll look into implementing it!
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-tomorrow.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-tomorrow.css">
+<script src="https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
