@@ -315,3 +315,5 @@ Runs from your user profile page. Queries the metaculus server for every questio
 ## Suggest a Hack
 
 Think I might be able to make Metaculus work a little better for you? [Suggest a new hack](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose) and I'll look into implementing it!
+
+<script>console.log("Javascript Works!");</script>
