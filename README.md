@@ -26,7 +26,7 @@ The incredible team at Ought has created an awesome tool called [Elicit](https:/
 
 <a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="elicit-code">
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="elicit-code" class="language-javascript">
 </code></pre></div></div>
 
 <script>
@@ -332,3 +332,7 @@ Runs from your user profile page. Queries the metaculus server for every questio
 ## Suggest a Hack
 
 Think I might be able to make Metaculus work a little better for you? [Suggest a new hack](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose) and I'll look into implementing it!
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
