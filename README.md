@@ -20,6 +20,23 @@ Anyway, to use these:
 * These are very much *hacks*. I don't guarantee any of them will work.
 * If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.** (Metaculus Admins, allow me to suggest you take a concerned look at the [Danger Zone](#danger-zone).)
 
+### Load Question in Elicit (Continuous, Linear Scale Questions only for now)
+
+The incredible team at Ought has created an awesome tool called [Elicit](https://elicit.ought.org/) to help update continuous distributions. As part of their offering, they included a bookmarklet, and agreed to let me host a copy here (thanks [@ought](https://ought.org/)!)
+
+<a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="elicit-code">
+</code></pre></div></div>
+
+<script>
+fetch('https://api.github.com/gists/57b8a798ea37b82f09a4ad940cf9d3d1').then(r => r.json().then(d => {
+  let bookmarklet = d.files['elicitMetaculusBookmarklet.js'].content;
+  document.getElementById('elicit-launcher').href = 'javascript:' + encodeURIComponent(bookmarklet);
+  document.getElementById('elicit-code').innerText = bookmarklet;
+}));
+</script>
+
 ### Predict the Community Estimate (binary questions only)
 
 If you don't predict on everything, you'll fall off the leaderboard. But let's be honest, nobody's interested in every question. Sometimes you just want to peg your prediction to the community estimate and move on. This bookmarklet does it for you! On a Binary question page (only binary questions for now!), click this bookmarklet and you'll register a prediction equal to the community estimate.
