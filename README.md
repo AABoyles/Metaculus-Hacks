@@ -26,14 +26,13 @@ The incredible team at Ought has created an awesome tool called [Elicit](https:/
 
 <a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="elicit-code" class="language-javascript">
-</code></pre></div></div>
+<pre><code id="elicit-code" class="language-javascript"></code></pre>
 
 <script>
 fetch('https://api.github.com/gists/57b8a798ea37b82f09a4ad940cf9d3d1').then(r => r.json().then(d => {
   let bookmarklet = d.files['elicitMetaculusBookmarklet.js'].content;
   document.getElementById('elicit-launcher').href = 'javascript:' + encodeURIComponent(bookmarklet);
-  document.getElementById('elicit-code').innerText = bookmarklet;
+  document.getElementById('elicit-code').textContent = bookmarklet;
 }));
 </script>
 
