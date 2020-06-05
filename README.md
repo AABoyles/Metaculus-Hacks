@@ -22,7 +22,7 @@ Anyway, to use these:
 
 ### Load Question in Elicit (Continuous, Linear Scale Questions only for now)
 
-The incredible team at Ought has created an awesome tool called [Elicit](https://elicit.ought.org/) to help update continuous distributions. As part of their offering, they included a bookmarklet, and agreed to let me host a copy here (thanks [@ought](https://ought.org/)!)
+The incredible team at Ought has created an awesome tool called [Elicit](https://elicit.ought.org/) to help update continuous distributions. As part of their offering, they included a bookmarklet, and agreed to let me host a copy here. Thanks [@ought](https://ought.org/)!
 
 <a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
 
@@ -109,20 +109,21 @@ This makes use of [the super-secret official-but-unsupported Metaculus API](http
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
-  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => {
       fetch(`https://www.metaculus.com/accounts/profile/${metacData.user.id}/track-record-export/`).then(data1 => data1.json().then(predictions => {
         saveAs(new Blob([Papa.unparse(predictions)], {type: "text/csv;charset=utf-8"}), "track-record.csv");
       }));
     });
-  });
 })();
 ```
 
@@ -134,20 +135,21 @@ If you want to analyze Metaculus' Track record (again, on Binary questions only)
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
-  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => {
       fetch(`https://www.metaculus.com/questions/track-record/export/`).then(data1 => data1.json().then(predictions => {
         saveAs(new Blob([Papa.unparse(predictions)], {type: "text/csv;charset=utf-8"}), "metaculus-track-record.csv");
       }));
     });
-  });
 })();
 ```
 
@@ -159,18 +161,17 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
-  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
-      saveAs(new Blob([Papa.unparse(metacData.question.prediction_timeseries.map(t => Object.assign(t, t.distribution)))], {type: "text/csv;charset=utf-8"}), "predictions.csv");
-    });
-  });
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => saveAs(new Blob([Papa.unparse(metacData.question.prediction_timeseries.map(t => Object.assign(t, t.distribution)))], {type: "text/csv;charset=utf-8"}), "predictions.csv"));
 })();
 ```
 
@@ -182,14 +183,17 @@ For binary questions, will work about how you expect. For range questions, it's 
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
-  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+  };
+
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => {
       let myPredictions;
       if(metacData.question.possibilities.type == 'binary'){
         myPredictions = metacData.question.my_predictions.predictions.map(p => ({
@@ -209,7 +213,6 @@ For binary questions, will work about how you expect. For range questions, it's 
       }
       saveAs(new Blob([Papa.unparse(myPredictions)], {type: "text/csv;charset=utf-8"}), "my-predictions.csv");
     });
-  });
 })();
 ```
 
@@ -226,12 +229,12 @@ Things to be aware of:
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
   loadScript("https://unpkg.com/save-svg-as-png@1.4.17/lib/saveSvgAsPng.js").then(() => {
     saveSvgAsPng(document.querySelectorAll("svg.metac-graph")[0], "diagram.png", {scale: 10});
@@ -255,15 +258,17 @@ Same idea [as above](#download-your-track-record-binary-questions-only-as-csv), 
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
-  loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js").then(() => {
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => {
       fetch(`https://www.metaculus.com/api2/questions/?guessed_by=${metacData.user.id}&order_by=-activity&page=1`).then(data1 => data1.json().then(predictions => {
         let n = Math.ceil(predictions.count/20);
         let requests = [];
@@ -277,7 +282,6 @@ Same idea [as above](#download-your-track-record-binary-questions-only-as-csv), 
         Promise.all(requests).then(() => saveAs(new Blob([Papa.unparse(predictions.results)], {type: "text/csv;charset=utf-8"}), "track-record.csv"));
       }));
     });
-  });
 })();
 ```
 
@@ -307,22 +311,21 @@ Runs from your user profile page. Queries the metaculus server for every questio
 
 ```javascript
 (() => {
-  async function loadScript(url){
+  const loadScript = async function(url){
     let script   = document.createElement("script");
     script.type  = "text/javascript";
     await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
     document.body.appendChild(script);
-  }
+  };
 
   loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js").then(() => {
-    allRequests = [];
-    allQuestions = [];
+    let allRequests = [];
+    let allQuestions = [];
     for(let i = 0; i < metacData.trackRecord.length; i++){
       allRequests.push(fetch(metacData.trackRecord[i].url).then(r => r.text().then(t => {
         allQuestions.push(JSON.parse(/window.metacData.question = (.*);/.exec(t)[1]));
       })));
     }
-
     Promise.all(allRequests).then(() => saveAs(new Blob([JSON.stringify(allQuestions)], {type: "application/json;charset=utf-8"}), "predictions.json"));
   });
 })();
