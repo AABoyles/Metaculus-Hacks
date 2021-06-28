@@ -20,21 +20,7 @@ Anyway, to use these:
 * These are very much *hacks*. I don't guarantee any of them will work.
 * If anyone at Metaculus [requests that any or all of these be removed](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose), **I pre-commit to complying with their request.** (Metaculus Admins, allow me to suggest you take a concerned look at the [Danger Zone](#danger-zone).)
 
-### Load Question in Elicit (Continuous, Linear Scale Questions only for now)
-
-The incredible team at Ought has created an awesome tool called [Elicit](https://elicit.ought.org/) to help update continuous distributions. As part of their offering, they included a bookmarklet, and agreed to let me host a copy here. Thanks [@ought](https://ought.org/)!
-
-<a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
-
-<pre><code id="elicit-code" class="language-javascript"></code></pre>
-
-<script>
-fetch('https://api.github.com/gists/57b8a798ea37b82f09a4ad940cf9d3d1').then(r => r.json().then(d => {
-  let bookmarklet = d.files['elicitMetaculusBookmarklet.js'].content;
-  document.getElementById('elicit-launcher').href = 'javascript:' + encodeURIComponent(bookmarklet);
-  document.getElementById('elicit-code').textContent = bookmarklet;
-}));
-</script>
+## For Forecasters
 
 ### Predict the Community Estimate (binary questions only)
 
@@ -58,48 +44,21 @@ If you don't predict on everything, you'll fall off the leaderboard. But let's b
 })();
 ```
 
-### Use the Light Theme
+### Load Question in Elicit (Continuous, Linear Scale Questions only for now)
 
-Metaculus has four subdomains (of which I'm aware): [Prime](https://metaculus.com/), [AI](https://ai.metaculus.com/), [Pandemic](https://pandemic.metaculus.com/) and [Finance](https://finance.metaculus.com/). That last one got its own stylesheet, with a cream-background. We can hijack that for the other sites, if you're inclined to read with a light background.
+The incredible team at Ought has created an awesome tool called [Elicit](https://elicit.ought.org/) to help update continuous distributions. As part of their offering, they included a bookmarklet, and agreed to let me host a copy here. Thanks [@ought](https://ought.org/)!
 
-<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Blet%20link%20%20%20%3D%20document.createElement(%22link%22)%3Blink.rel%20%20%3D%20%22stylesheet%22%3Blink.href%20%20%20%3D%20%22https%3A%2F%2Fd3s0w6fek99l5b.cloudfront.net%2Fstatic%2Fmetaculus_finance.55b9910596de.css%22%3Bdocument.body.appendChild(link)%3B%7D)()%7D)()">Turn on the lights!</a>
+<a style="color: red !important;" id="elicit-launcher">Launch in Elicit</a>
 
-```javascript
-(() => {
-  let link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "https://d3s0w6fek99l5b.cloudfront.net/static/metaculus_finance.55b9910596de.css";
-  document.body.appendChild(link);
-})();
-```
+<pre><code id="elicit-code" class="language-javascript"></code></pre>
 
-### Use the Hacker Theme
-
-Sometimes you just want a black screen with a blinking green cursor, right? Transform Metaculus into something that looks right at home on your 8086. Kinda like this site, come to think of it...
-
-<a style="color: red !important;" href="javascript:(function()%7B(()%3D%3E%7B%0A%20%20let%20style%20%3D%20document.createElement(%22style%22)%3B%0A%20%20style.innerText%20%3D%20%22body%7B%20color%3A%20%2300ff00%3B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20style.innerText%20%2B%3D%20%22.section__content%20%7B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20style.innerText%20%2B%3D%20%22.question-table__row%3E%3Afirst-child%20%7B%20background-color%3A%20%23000000%3B%20%7D%22%3B%0A%20%20document.body.appendChild(style)%3B%0A%7D)()%3B%7D)()%3B">Hackerize Metaculus</a>
-
-```javascript
-(()=>{
-  let style = document.createElement("style");
-  style.innerText = "body{ color: #00ff00; background-color: #000000; }";
-  style.innerText += ".section__content { background-color: #000000; }";
-  style.innerText += ".question-table__row>:first-child { background-color: #000000; }";
-  document.body.appendChild(style);
-})();
-```
-
-### Show my Pending Questions
-
-Suppose in addition to forecasting, you write a lot of questions. Sometimes, some of those will get stuck in moderation for awhile. In times like these, it would be helpful to be able to set the status filter to "Pending", but that isn't an option. [Sad!](https://knowyourmeme.com/memes/donald-trumps-sad-tweets) Fortunately, we can do this ourselves.
-
-<a style="color: red !important;" href="javascript:(function()%7Bdocument.querySelectorAll('question-table-row').forEach(x%20%3D%3E%20%7Bif(x.innerText.indexOf('Pending')%20%3D%3D%20-1)%20x.remove()%3B%7D)%7D)()">Pending Only, Please!</a>
-
-```javascript
-document.querySelectorAll('question-table-row').forEach(x => {
-  if(x.innerText.indexOf('Pending') == -1) x.remove();
-});
-```
+<script>
+fetch('https://api.github.com/gists/57b8a798ea37b82f09a4ad940cf9d3d1').then(r => r.json().then(d => {
+  let bookmarklet = d.files['elicitMetaculusBookmarklet.js'].content;
+  document.getElementById('elicit-launcher').href = 'javascript:' + encodeURIComponent(bookmarklet);
+  document.getElementById('elicit-code').textContent = bookmarklet;
+}));
+</script>
 
 ### Download Your Track Record (binary questions only, as csv)
 
@@ -126,6 +85,63 @@ This makes use of [the super-secret official-but-unsupported Metaculus API](http
     });
 })();
 ```
+
+### Download My Predictions From a Question (as CSV)
+
+For binary questions, will work about how you expect. For range questions, it's a little more complex--each prediction includes an array components (one for each peak in a multimodal prediction), normalized to a 0-1 scale (or something close to it). I haven't yet figured out how to translate the component values onto the question's actual range, but I'm pretty sure I've got the values that correspond to the mean, spread, and weight figured out. Those are reported (though not translated into the actual question scale) as `component{i}mean`, `component{i}weight`, and `component{i}spread` (where `{i}` is the component's 0-based ordinal index in the array). (Inspired by [this feature request](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add/#comment-27321).)
+
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Blet%20myPredictions%3Bif(metacData.question.possibilities.type%20%3D%3D%20'binary')%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20(%7Btime%3A%20new%20Date(p.t*1000).toISOString()%2Cprediction%3A%20p.x%7D))%3B%7D%20else%20%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20%7Blet%20prediction%20%3D%20%7B%20time%3A%20new%20Date(p.t*1000).toISOString()%20%7D%3Bp.d.forEach((c%2C%20i)%20%3D%3E%20%7Bprediction%5B%60component%24%7Bi%7Dmean%60%5D%20%3D%20c.x0%3Bprediction%5B%60component%24%7Bi%7Dspread%60%5D%20%3D%20c.s%3Bprediction%5B%60component%24%7Bi%7Dweight%60%5D%20%3D%20c.w%3B%7D)%3Breturn%20prediction%3B%7D)%3B%7DsaveAs(new%20Blob(%5BPapa.unparse(myPredictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22my-predictions.csv%22)%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Predictions on this Question</a>
+
+```javascript
+(() => {
+  const loadScript = async function(url){
+    let script   = document.createElement("script");
+    script.type  = "text/javascript";
+    await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
+    document.body.appendChild(script);
+  };
+
+  Promise.all([
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
+  ]).then(() => {
+      let myPredictions;
+      if(metacData.question.possibilities.type == 'binary'){
+        myPredictions = metacData.question.my_predictions.predictions.map(p => ({
+          time: new Date(p.t*1000).toISOString(),
+          prediction: p.x
+        }));
+      } else {
+        myPredictions = metacData.question.my_predictions.predictions.map(p => {
+          let prediction = { time: new Date(p.t*1000).toISOString() };
+          p.d.forEach((c, i) => {
+            prediction[`component${i}mean`] = c.x0;
+            prediction[`component${i}spread`] = c.s;
+            prediction[`component${i}weight`] = c.w;
+          });
+          return prediction;
+        });
+      }
+      saveAs(new Blob([Papa.unparse(myPredictions)], {type: "text/csv;charset=utf-8"}), "my-predictions.csv");
+    });
+})();
+```
+
+## For Question Authors
+
+### Show my Pending Questions
+
+Suppose in addition to forecasting, you write a lot of questions. Sometimes, some of those will get stuck in moderation for awhile. In times like these, it would be helpful to be able to set the status filter to "Pending", but that isn't an option. [Sad!](https://knowyourmeme.com/memes/donald-trumps-sad-tweets) Fortunately, we can do this ourselves.
+
+<a style="color: red !important;" href="javascript:(function()%7Bdocument.querySelectorAll('question-table-row').forEach(x%20%3D%3E%20%7Bif(x.innerText.indexOf('Pending')%20%3D%3D%20-1)%20x.remove()%3B%7D)%7D)()">Pending Only, Please!</a>
+
+```javascript
+document.querySelectorAll('question-table-row').forEach(x => {
+  if(x.innerText.indexOf('Pending') == -1) x.remove();
+});
+```
+
+## For Data Junkies
 
 ### Download the Metaculus Track Record (binary questions only, as csv)
 
@@ -175,48 +191,7 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
 })();
 ```
 
-### Download My Predictions From a Question (as CSV)
-
-For binary questions, will work about how you expect. For range questions, it's a little more complex--each prediction includes an array components (one for each peak in a multimodal prediction), normalized to a 0-1 scale (or something close to it). I haven't yet figured out how to translate the component values onto the question's actual range, but I'm pretty sure I've got the values that correspond to the mean, spread, and weight figured out. Those are reported (though not translated into the actual question scale) as `component{i}mean`, `component{i}weight`, and `component{i}spread` (where `{i}` is the component's 0-based ordinal index in the array). (Inspired by [this feature request](https://www.metaculus.com/questions/935/discussion-topic-what-features-should-metaculus-add/#comment-27321).)
-
-<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7Basync%20function%20loadScript(url)%7Blet%20script%20%20%20%3D%20document.createElement(%22script%22)%3Bscript.type%20%20%3D%20%22text%2Fjavascript%22%3Bawait%20fetch(url).then(r%20%3D%3E%20r.text().then(s%20%3D%3E%20script.innerHTML%20%3D%20s))%3Bdocument.body.appendChild(script)%3B%7DloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FPapaParse%2F5.1.0%2Fpapaparse.min.js%22).then(()%20%3D%3E%20%7BloadScript(%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FFileSaver.js%2F1.3.8%2FFileSaver.min.js%22).then(()%20%3D%3E%20%7Blet%20myPredictions%3Bif(metacData.question.possibilities.type%20%3D%3D%20'binary')%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20(%7Btime%3A%20new%20Date(p.t*1000).toISOString()%2Cprediction%3A%20p.x%7D))%3B%7D%20else%20%7BmyPredictions%20%3D%20metacData.question.my_predictions.predictions.map(p%20%3D%3E%20%7Blet%20prediction%20%3D%20%7B%20time%3A%20new%20Date(p.t*1000).toISOString()%20%7D%3Bp.d.forEach((c%2C%20i)%20%3D%3E%20%7Bprediction%5B%60component%24%7Bi%7Dmean%60%5D%20%3D%20c.x0%3Bprediction%5B%60component%24%7Bi%7Dspread%60%5D%20%3D%20c.s%3Bprediction%5B%60component%24%7Bi%7Dweight%60%5D%20%3D%20c.w%3B%7D)%3Breturn%20prediction%3B%7D)%3B%7DsaveAs(new%20Blob(%5BPapa.unparse(myPredictions)%5D%2C%20%7Btype%3A%20%22text%2Fcsv%3Bcharset%3Dutf-8%22%7D)%2C%20%22my-predictions.csv%22)%3B%7D)%3B%7D)%3B%7D)()%7D)()">Download My Predictions on this Question</a>
-
-```javascript
-(() => {
-  const loadScript = async function(url){
-    let script   = document.createElement("script");
-    script.type  = "text/javascript";
-    await fetch(url).then(r => r.text().then(s => script.innerHTML = s));
-    document.body.appendChild(script);
-  };
-
-  Promise.all([
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
-    loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
-  ]).then(() => {
-      let myPredictions;
-      if(metacData.question.possibilities.type == 'binary'){
-        myPredictions = metacData.question.my_predictions.predictions.map(p => ({
-          time: new Date(p.t*1000).toISOString(),
-          prediction: p.x
-        }));
-      } else {
-        myPredictions = metacData.question.my_predictions.predictions.map(p => {
-          let prediction = { time: new Date(p.t*1000).toISOString() };
-          p.d.forEach((c, i) => {
-            prediction[`component${i}mean`] = c.x0;
-            prediction[`component${i}spread`] = c.s;
-            prediction[`component${i}weight`] = c.w;
-          });
-          return prediction;
-        });
-      }
-      saveAs(new Blob([Papa.unparse(myPredictions)], {type: "text/csv;charset=utf-8"}), "my-predictions.csv");
-    });
-})();
-```
-
-### Download A Community Prediction Plot (as PNG)
+### Download a Community Prediction Plot (as PNG)
 
 The graphs on Metaculus are rendered using SVG, which is awesome for two things: 1. the web and 2. print. Not so good for exporting (e.g. into a document). Luckily it can be converted into PNG without too much trouble. This means we can write a hack to download a PNG of a graph.
 
@@ -246,9 +221,19 @@ Things to be aware of:
 
 **Please don't abuse bookmarklets below this. They rely on repeated calls to the Metaculus API, meaning that hammering them could hurt the Metaculus Server.**
 
-## Disclaimer Addendum
+### Disclaimer Addendum
 
 * You assume responsibility for the consequences of using these. If you somehow get in trouble for using these, feel free to explain to the Metaculus admins that these were involved, but **the fault is not 100% mine.** You have been amply warned, you know the risks.
+
+### Load All Questions
+
+Ever get annoyed that you have to click "Load More" a bunch to browse down to older questions? Just click this bookmarklet to automatically click it until all questions are loaded. Loads a maximum of 300 questions per second (plus additional latency), so it won't happen immediately, but it's still faster than clicking it yourself.
+
+<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20setInterval(()%20%3D%3E%20document.querySelector('._load-more').click()%2C%20100)%7D)()%7D)()">Load All Questions</a>
+
+```javascript
+(() => setInterval(() => document.querySelector('._load-more').click(), 100)})();
+```
 
 ### Download Your Track Record (All questions, as csv)
 
@@ -282,24 +267,6 @@ Same idea [as above](#download-your-track-record-binary-questions-only-as-csv), 
         Promise.all(requests).then(() => saveAs(new Blob([Papa.unparse(predictions.results)], {type: "text/csv;charset=utf-8"}), "track-record.csv"));
       }));
     });
-})();
-```
-
-### Load All Questions
-
-Ever get annoyed that you have to click "Load More" a bunch to browse down to older questions? Just click this bookmarklet to automatically click it until all questions are loaded. Loads a maximum of 300 questions per second (plus additional latency), so it won't happen immediately, but it's still faster than clicking it yourself.
-
-<a style="color: red !important;" href="javascript:(function()%7B(()%20%3D%3E%20%7B%0Alet%20cycler%20%3D%20setInterval(()%20%3D%3E%20%7B%0A%20%20if(document.querySelectorAll('question-table-row').length%20%3C%20metacData.initialQList.count)%7B%0A%20%20%20%20document.querySelector('._load-more').click()%3B%0A%20%20%7D%20else%20%7B%0A%20%20%20%20clearInterval(cycler)%3B%0A%20%20%7D%0A%7D%2C%20100)%3B%0A%7D)()%3B%7D)()%3B">Load All Questions</a>
-
-```javascript
-(() => {
-let cycler = setInterval(() => {
-  if(document.querySelectorAll('question-table-row').length < metacData.initialQList.count){
-    document.querySelector('._load-more').click();
-  } else {
-    clearInterval(cycler);
-  }
-}, 100);
 })();
 ```
 
