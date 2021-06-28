@@ -171,7 +171,7 @@ Metaculus exposes a time-series of a question's distribution of predictions in o
   Promise.all([
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"),
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js")
-  ]).then(() => saveAs(new Blob([Papa.unparse(metacData.question.prediction_timeseries.map(t => Object.assign(t, t.distribution)))], {type: "text/csv;charset=utf-8"}), "predictions.csv"));
+  ]).then(() => saveAs(new Blob([Papa.unparse(metacData.question.community_prediction.history.map(p => Object.assign(p.x1, {np: p.np, nu: p.nu, time: p.time.toISOString()})))], {type: "text/csv;charset=utf-8"}), "predictions.csv"));
 })();
 ```
 
