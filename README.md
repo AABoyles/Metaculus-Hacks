@@ -11,7 +11,7 @@ Anyway, to use these:
 1. [Show your bookmarks Bar.](https://www.computerhope.com/issues/ch001917.htm)
 2. Find the bookmarklet that does the thing you want. The actual bookmarklets are the <a href="#" style="color:red;">underlined text shown in red</a> below.
 3. Drag that bookmarklet to your bookmarks bar, and drop it there. It should now appear there, even if you surf away from this site.
-4. Go to https://metaculus.com/ (or the [specific subdomain](https://pandemic.metaculus.com/questions/) in which you're interested).
+4. Go to [Metaculus](https://metaculus.com/) (or the [specific subdomain](https://pandemic.metaculus.com/questions/) in which you're interested).
 5. Go to the place where you can see the data you want. If you want a time-series of predictions on a single question, go to that question's page. If you want data on track records or all questions, you can probably do that most anywhere on the site. Bookmarklets with specific rules are noted in their descriptions.
 6. Click your bookmarklet. Whatever should happen, uh, should happen. If it doesn't, [please let me know.](https://github.com/AABoyles/Metaculus-Hacks/issues/new/choose)
 
