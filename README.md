@@ -22,6 +22,33 @@ Anyway, to use these:
 
 ## For Forecasters
 
+### Toggle the Community Estimate
+
+Requested by Michal Dubrawski. Keep yourself epistemically honest! Make predictions *before* you see the community estimate. Click the bookmarklet to toggle the visibility of the community estimate distribution information.
+
+<a style="color: red !important;" href="javascript:(function()%7B(self%20%3D%3E%20%7Bif(typeof%20metHackData%20%3D%3D%20%22undefined%22)%20metHackData%20%3D%20%7BcommunityDisplay%3A%20%22flex%22%7D%3Bif(metHackData.communityDisplay%20%3D%3D%20%22flex%22)%20metHackData.communityDisplay%20%3D%20%22none%22%3Belse%20metHackData.communityDisplay%20%3D%20%22flex%22%3B%5B'svg.ng-scope'%2C'.prediction-toggle'%2C'div.ng-scope%20%3E%20svg.metac-graph'%2C'%5Bng-if%3D%22question.communityPrediction()%22%5D'%2C'.handle.avg-guess'%2C'.label.avg-guess'%2C'.binary_stats'%5D.forEach(s%20%3D%3E%20%7Bdocument.querySelectorAll(s).forEach(el%20%3D%3E%20%7Bel.style.display%3DmetHackData.communityDisplay%3B%7D)%3B%7D)%3B%7D)(self)%7D)()">Toggle Community Estimates</a>
+
+```javascript
+(self => {
+  if(typeof metHackData == "undefined") metHackData = {communityDisplay: "flex"};
+  if(metHackData.communityDisplay == "flex") metHackData.communityDisplay = "none";
+  else metHackData.communityDisplay = "flex";
+  [
+    'svg.ng-scope',
+    '.prediction-toggle',
+    'div.ng-scope > svg.metac-graph',
+    '[ng-if="question.communityPrediction()"]',
+    '.handle.avg-guess',
+    '.label.avg-guess',
+    '.binary_stats'
+  ].forEach(s => {
+  	document.querySelectorAll(s).forEach(el => {
+  	  el.style.display=metHackData.communityDisplay;
+  	});
+  });
+})(self);
+```
+
 ### Predict the Community Estimate (binary questions only)
 
 If you don't predict on everything, you'll fall off the leaderboard. But let's be honest, nobody's interested in every question. Sometimes you just want to peg your prediction to the community estimate and move on. This bookmarklet does it for you! On a Binary question page (only binary questions for now!), click this bookmarklet and you'll register a prediction equal to the community estimate.
